@@ -8,13 +8,8 @@ function App() {
   const [tenzies, setTenzies] = React.useState(false);
 
   /**
-   * Challenge: Tie off loose ends!
-   * 1. If tenzies is true, Change the button text to "New Game"
-   * 2. If tenzies is true, use the "react-confetti" package to
-   *    render the <Confetti /> component 🎉
-   *
-   *    Hint: don't worry about the `height` and `width` props
-   *    it mentions in the documentation.
+   * Challenge: Allow the user to play a new game when the
+   * button is clicked and they've already won
    */
 
   // React.useEffect(() => {
@@ -22,6 +17,11 @@ function App() {
   //     document.querySelector("button").textContent = "New Game";
   //   }
   // }, [tenzies]);
+
+  function resetGame() {
+    setTenzies(false);
+    setDice(allNewDice());
+  }
 
   React.useEffect(() => {
     if (
@@ -78,7 +78,9 @@ function App() {
         current value between rolls.
       </p>
       <div className="die-container">{diceElements}</div>
-      <button onClick={roll}>{tenzies ? "New Game" : "Roll"}</button>
+      <button onClick={tenzies ? resetGame : roll}>
+        {tenzies ? "New Game" : "Roll"}
+      </button>
     </main>
   );
 }
