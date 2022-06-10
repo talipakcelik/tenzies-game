@@ -7,20 +7,13 @@ function App() {
 
   const [tenzies, setTenzies] = React.useState(false);
 
-  /**
-   * Challenge: Allow the user to play a new game when the
-   * button is clicked and they've already won
-   */
-
-  // React.useEffect(() => {
-  //   if (tenzies) {
-  //     document.querySelector("button").textContent = "New Game";
-  //   }
-  // }, [tenzies]);
+  const [trackRolls, setTrackRolls] = React.useState(0);
 
   function resetGame() {
     setTenzies(false);
     setDice(allNewDice());
+    setTrackRolls(0);
+    setTime(0);
   }
 
   React.useEffect(() => {
@@ -29,9 +22,11 @@ function App() {
       dice.every((die) => die.value === dice[0].value)
     ) {
       setTenzies(true);
-      console.log("you won");
+      setTimerOn(false);
     }
   }, [dice]);
+
+  React.useEffect(() => {}, [tenzies]);
 
   function allNewDice() {
     const newDice = [];
@@ -50,6 +45,9 @@ function App() {
         return el.id === id ? { ...el, isHeld: !el.isHeld } : el;
       })
     );
+    if (dice.every((die) => die.isHeld === false)) {
+      setTimerOn(true);
+    }
   }
 
   const diceElements = dice.map((die, index) => (
@@ -67,11 +65,39 @@ function App() {
         return el.isHeld ? el : { ...el, value: Math.ceil(Math.random() * 6) };
       })
     );
+    setTrackRolls(trackRolls + 1);
+    setTimerOn(true);
   }
+  const [time, setTime] = React.useState(0);
+  const [timerOn, setTimerOn] = React.useState(false);
+
+  React.useEffect(() => {
+    let interval = null;
+
+    if (timerOn) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else if (!timerOn) {
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [timerOn]);
 
   return (
     <main>
       {tenzies && <Confetti />}
+      <div className="track-container">
+        <div className="rolls-title">Number of Rolls </div>
+        <div className="stopwatch-title">Elapsed Time</div>
+        <div className="rolls-score">{trackRolls}</div>
+        <div className="stopwatch-score">
+          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
+          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+        </div>
+      </div>
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
         Roll until all dice are the same. Click each die to freeze it at its
