@@ -20,13 +20,13 @@ body {
 main {
   background-color: #f5f5f5;
   max-width: 40rem;
-  height: 40rem;
+  height: 50rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 4rem;
+  padding: 4rem 4rem 5rem 4rem;
 }
 
 .filter {
@@ -40,10 +40,6 @@ main {
   grid-template-rows: auto auto;
   gap: 1rem;
   margin-top: 2rem;
-}
-
-span {
-  font-size: 2.2rem;
 }
 
 button {
@@ -66,6 +62,7 @@ button:active {
 h1 {
   font-size: 40px;
   margin: 0;
+  margin-top: 2rem;
 }
 
 p {
@@ -86,4 +83,24 @@ img {
   cursor: pointer;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
   border-radius: 6px;
+}
+
+.track-container {
+  width: 30rem;
+  height: 5rem;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  align-items: center;
+  justify-items: center;
+}
+
+.rolls-title,
+.stopwatch-title,
+.rolls-score,
+.stopwatch-score {
+  text-align: center;
+  font-size: 1.3rem;
+  font-family: "Inter", sans-serif;
 }
