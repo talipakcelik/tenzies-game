@@ -9,6 +9,10 @@ function App() {
 
   const [trackRolls, setTrackRolls] = React.useState(0);
 
+  const [time, setTime] = React.useState(0);
+
+  const [timerOn, setTimerOn] = React.useState(false);
+
   function resetGame() {
     setTenzies(false);
     setDice(allNewDice());
@@ -26,7 +30,22 @@ function App() {
     }
   }, [dice]);
 
-  React.useEffect(() => {}, [tenzies]);
+  React.useEffect(() => {
+    const hsRolls = localStorage.getItem("rolls");
+    const hsEt = localStorage.getItem("et");
+
+    if (trackRolls !== 0) {
+      if (hsRolls > trackRolls || hsRolls === null) {
+        localStorage.setItem("rolls", trackRolls);
+      }
+    }
+
+    if (time !== 0) {
+      if (hsEt > time || hsEt === null) {
+        localStorage.setItem("et", time);
+      }
+    }
+  }, [tenzies]);
 
   function allNewDice() {
     const newDice = [];
@@ -68,8 +87,6 @@ function App() {
     setTrackRolls(trackRolls + 1);
     setTimerOn(true);
   }
-  const [time, setTime] = React.useState(0);
-  const [timerOn, setTimerOn] = React.useState(false);
 
   React.useEffect(() => {
     let interval = null;
@@ -97,6 +114,14 @@ function App() {
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
           <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </div>
+        {localStorage.getItem("rolls") && (
+          <div className="hs1">{localStorage.getItem("rolls")}</div>
+        )}
+        {localStorage.getItem("et") && (
+          <div className="hs2">{`${localStorage
+            .getItem("et")
+            .slice(0, 2)}:${localStorage.getItem("et").slice(2, 4)}`}</div>
+        )}
       </div>
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
