@@ -26,7 +26,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem 4rem 5rem 4rem;
+  padding: 3rem 4rem 5rem 4rem;
 }
 
 .filter {
@@ -87,9 +87,9 @@ img {
 
 .track-container {
   width: 30rem;
-  height: 5rem;
+  height: 7rem;
   display: grid;
-  grid-template: 1fr 1fr / 1fr 1fr;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   align-items: center;
@@ -99,8 +99,15 @@ img {
 .rolls-title,
 .stopwatch-title,
 .rolls-score,
-.stopwatch-score {
-  text-align: center;
+.stopwatch-score,
+.hs1,
+.hs2 {
   font-size: 1.3rem;
   font-family: "Inter", sans-serif;
+}
+
+.hs1,
+.hs2 {
+  color: #d00b40;
+  font-weight: bold;
 }
