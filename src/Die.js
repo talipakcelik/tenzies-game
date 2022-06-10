@@ -1,9 +1,14 @@
 import React from "react";
 
 export default function Die(props) {
+  const holder = Number(props.value);
   return (
-    <div className={props.isHeld ? "die held" : "die"} onClick={props.hold}>
-      <span>{props.value}</span>
+    <div onClick={props.hold}>
+      <img
+        src={`${process.env.PUBLIC_URL}/dice/${holder}.svg`}
+        alt="broken"
+        className={props.isHeld ? "filter" : ""}
+      ></img>
     </div>
   );
 }
